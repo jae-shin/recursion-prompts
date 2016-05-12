@@ -103,6 +103,16 @@ var range = function(x, y) {
 // Example:  exponent(4,3);  // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  if (exp === 0) {
+    return 1;
+  }
+
+  if (exp > 0) {
+    return base * exponent(base, exp - 1);
+  }
+  if (exp < 0) {
+    return 1 / exponent(base, exp*(-1));
+  }
   
 };
 
@@ -111,14 +121,45 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  if (n === 0) {
+    return false;
+  } else if (n === 1) {
+    return true;
+  } else if (n % 2 === 1) {
+    return false;
+  }
+
+  return powerOfTwo(n/2);
 };
 
 // 9. Write a function that accepts a string a reverses it.
 var reverse = function(string) {
+  var length = string.length;
+  if (length <= 1) {
+    return string;
+  }
+
+  return reverse(string.slice(1)) + string[0];
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+  // should ignore spaces and capital letters
+  string = string.toLowerCase().trim();
+  
+  var length = string.length;
+  
+  // base case
+  if (length < 2) {
+    return true;
+  }
+
+  // recursive case
+  if (string[0] === string[length - 1]) {
+    return palindrome(string.slice(1, -1));
+  } else {
+    return false;
+  }
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
