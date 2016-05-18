@@ -168,11 +168,48 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+  if (y === 0) {
+    return NaN;
+  }
+
+  var abs_x = (x < 0) ? -x : x;
+  var abs_y = (y < 0) ? -y : y;
+
+  if (abs_x === abs_y) {
+    return (x < 0) ? -0 : 0;
+  } else if (abs_x > abs_y) {
+    if (x < 0) {
+      return modulo(x + abs_y, abs_y);
+    } else {
+      return modulo(x - abs_y, abs_y);
+    }
+  } else {
+    return x;
+  }
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator  or
 // JavaScript's Math object.
 var multiply = function(x, y) {
+  if (x === 0 || y === 0) {
+    return 0;
+  }
+  if (x === 1) {
+    return y;
+  }
+  if (y === 1) {
+    return x;
+  }
+
+  if (y > 0) {
+    return x + multiply(x, y-1);
+  } else if (x > 0) {
+    // y < 0 and x > 0
+    return y + multiply(x-1, y);
+  } else {
+    // y < 0 and x < 0
+    return -x + multiply(-x, -y-1);
+  }
 };
 
 // 13. Write a function that divides two numbers without using the / operator  or
